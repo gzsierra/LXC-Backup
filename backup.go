@@ -5,7 +5,7 @@ import (
         "sync"
         "github.com/gzsierra/go-lxc"
         "log"
-        "gopkg.in/cheggaaa/pb.v1"
+        //"gopkg.in/cheggaaa/pb.v1"
         "time"
         "os/exec"
         "strconv"
@@ -26,12 +26,6 @@ var (
       day           int
 
       wg            sync.WaitGroup
-      ctotal        int
-      // cdone         int
-
-      cprogress     *pb.ProgressBar
-      progressBars  *pb.ProgressBar
-      pool          *pb.Pool
 )
 
 const(
@@ -39,7 +33,7 @@ const(
       lxcPath       = "/var/lib/lxc"
       lxcSnapPath   = "/var/lib/lxcsnaps"
 
-      backupHost    = "IP_REMOTE_SERVER"
+      backupHost    = "IP_REMOTE_HOST"
       host          = "USERNAME@" + backupHost
       backupFolder  = "BACKUP_FOLDER"
       hostFolder    = host + ":" + backupFolder
@@ -91,6 +85,7 @@ func (b backup) compressShip()  {
   } else {
     fmt.Println("Hum something wrong : ",weekday,
                 " ", b.container.Name())
+    wg.Done()
   }
 }
 
